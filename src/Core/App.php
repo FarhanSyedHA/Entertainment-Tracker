@@ -34,6 +34,12 @@ class App
             ], $e->getStatusCode());
         } catch (HttpException $e) {
             return Response::error($e->getMessage(), $e->getStatusCode());
+        } catch (\Throwable $e) {
+            $config = require __DIR__ . '/../../config/app.php';
+            $message = $config['app_env'] === 'production'
+                ? 'Internal server error'
+                : $e->getMessage();
+            return Response::error($message, 500);
         }
     }
 }
