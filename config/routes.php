@@ -11,6 +11,8 @@ use App\Actions\WatchHistory\ListAction;
 use App\Actions\WatchHistory\AddAction;
 use App\Actions\WatchHistory\UpdateAction;
 use App\Actions\WatchHistory\DeleteAction;
+use App\Actions\Stremio\WebhookAction;
+use App\Actions\Stremio\ProgressAction;
 use App\Core\Middleware\AuthMiddleware;
 
 return [
@@ -61,6 +63,16 @@ return [
     ],
     'DELETE /api/watch-history/{id}' => [
         'action' => DeleteAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+
+    // Stremio
+    'POST /api/stremio/webhook' => [
+        'action' => WebhookAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+    'POST /api/stremio/progress' => [
+        'action' => ProgressAction::class,
         'middleware' => [AuthMiddleware::class],
     ],
 ];
