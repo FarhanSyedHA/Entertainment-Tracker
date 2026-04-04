@@ -28,8 +28,8 @@ class Database
 
             // TiDB Cloud requires SSL
             if ($config['app_env'] === 'production') {
-                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
-                $options[PDO::MYSQL_ATTR_SSL_CA] = '';
+                $options[PDO::MYSQL_ATTR_SSL_CA] = '/etc/ssl/certs/ca-certificates.crt';
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
             }
 
             self::$instance = new PDO($dsn, $config['db_user'], $config['db_pass'], $options);
