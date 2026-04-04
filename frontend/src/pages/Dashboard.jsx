@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   const loadWatchHistory = async () => {
     try {
-      const data = await api.getWatchHistory?.() || { items: [] };
+      const data = await api.getWatchHistory();
       setWatchHistory(data.items || []);
     } catch {
       setWatchHistory([]);
@@ -33,9 +33,14 @@ export default function Dashboard() {
     try {
       const contentId = item.content_id || item.id;
       const data = await api.getContent(contentId);
-      setSelectedContent(data.content);
+      // Merge watch history info into content data
+      setSelectedContent({
+        ...data.content,
+        watch_history_id: item.id,
+        watch_status: item.status,
+        progress_percent: item.progress_percent,
+      });
     } catch {
-      // fallback: show what we have
       setSelectedContent(item);
     }
   };
@@ -79,6 +84,7 @@ export default function Dashboard() {
         <ContentModal
           content={selectedContent}
           onClose={() => setSelectedContent(null)}
+          onWatchHistoryChange={loadWatchHistory}
         />
       )}
     </div>

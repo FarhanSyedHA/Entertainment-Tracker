@@ -7,6 +7,10 @@ use App\Actions\Auth\MeAction;
 use App\Actions\Content\SearchAction;
 use App\Actions\Content\FetchAction;
 use App\Actions\Content\GetAction;
+use App\Actions\WatchHistory\ListAction;
+use App\Actions\WatchHistory\AddAction;
+use App\Actions\WatchHistory\UpdateAction;
+use App\Actions\WatchHistory\DeleteAction;
 use App\Core\Middleware\AuthMiddleware;
 
 return [
@@ -39,6 +43,24 @@ return [
     ],
     'GET /api/content/{id}' => [
         'action' => GetAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+
+    // Watch History
+    'GET /api/watch-history' => [
+        'action' => ListAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+    'POST /api/watch-history' => [
+        'action' => AddAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+    'PUT /api/watch-history/{id}' => [
+        'action' => UpdateAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+    'DELETE /api/watch-history/{id}' => [
+        'action' => DeleteAction::class,
         'middleware' => [AuthMiddleware::class],
     ],
 ];

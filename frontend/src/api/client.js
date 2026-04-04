@@ -38,4 +38,14 @@ export const api = {
   fetchContent: (contentType, externalId) =>
     request('POST', '/content/fetch', { content_type: contentType, external_id: externalId }),
   getContent: (id) => request('GET', `/content/${id}`),
+
+  // Watch History
+  getWatchHistory: (type = 'all') =>
+    request('GET', `/watch-history${type !== 'all' ? `?type=${type}` : ''}`),
+  addToWatchHistory: (contentId, episodeId = null, status = 'in_progress') =>
+    request('POST', '/watch-history', { content_id: contentId, episode_id: episodeId, status }),
+  updateWatchHistory: (id, data) =>
+    request('PUT', `/watch-history/${id}`, data),
+  deleteWatchHistory: (id) =>
+    request('DELETE', `/watch-history/${id}`),
 };
