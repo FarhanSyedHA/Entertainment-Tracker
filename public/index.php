@@ -2,6 +2,7 @@
 // this file is where every frontend http request first hits. because the php server we configured in Dockerfile points here (-t public)
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../config/app.php';
 use App\Core\Router;
 use App\Core\Request;
 use App\Actions\Test;
