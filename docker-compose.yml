@@ -1,0 +1,46 @@
+#docker-compose.yml is requred for defining services provided by docker container, it creates each container for each service and we need to like them.
+# volumes help to maintain data, when container stops, the data is lost. volumes save data outside of container. 
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306" #yourcomputer's port: container
+    environment:
+      MYSQL_ROOT_PASSWORD: TGGJwBDjSKp8gh3P #sets the root password for mysql
+      MYSQL_DATABASE: entertainment_tracker #creates a database named mydatabase
+      MYSQL_USER: farhan #creates a user named user
+      MYSQL_PASSWORD: open #sets the password for the user
+    volumes:
+      - db_data:/var/lib/mysql #persists the data in the mysql container
+    
+  backend:
+    build:
+      dockerfile: Dockerfile.dev #not image because we are not pulling an image but we are building it from the Dockerfile.dev
+    ports:
+      - "8000:8000" 
+    environment:
+      DB_HOST: db #sets the database host to the name of the db service
+      DB_PORT: 3306 #sets the database port to 3306
+      DB_USER: farhan #sets the database user
+      DB_PASSWORD: open #sets the database password
+      DB_NAME: entertainment_tracker #sets the database name
+    volumes:
+      - .:/app #mounts the current directory to /app in the container
+    depends_on:
+      - db #says that the backend service depends on the db service    
+    
+  frontend:
+    image: node:20
+    working_dir: /app
+    command: npm run dev -- --host
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8000/api #sets the backend URL to the name of the backend service
+    volumes:
+      - ./frontend:/app #mounts the frontend directory to /app in the container
+      #no depends_on becuase it talks to backend via Http.
+
+volumes:
+    db_data: #defines the volume named db_data
+    
