@@ -48,4 +48,10 @@ export const api = {
     request('PUT', `/watch-history/${id}`, data),
   deleteWatchHistory: (id) =>
     request('DELETE', `/watch-history/${id}`),
+  getStats: () => request('GET', '/watch-history/stats'),
+
+  // API Tokens
+  getTokens: () => request('GET', '/tokens'),
+  createToken: (name) => request('POST', '/tokens', { name }),
+  deleteToken: (id) => request('DELETE', `/tokens/${id}`),
 };

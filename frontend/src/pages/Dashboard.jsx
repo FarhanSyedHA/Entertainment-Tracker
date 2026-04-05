@@ -3,6 +3,7 @@ import { api } from '../api/client';
 import PosterCard from '../components/PosterCard';
 import SearchBar from '../components/SearchBar';
 import ContentModal from '../components/ContentModal';
+import Stats from '../components/Stats';
 
 export default function Dashboard() {
   const [watchHistory, setWatchHistory] = useState([]);
@@ -61,6 +62,8 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      <Stats />
 
       {loading ? (
         <div className="loading">Loading...</div>

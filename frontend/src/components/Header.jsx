@@ -1,7 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
-export default function Header() {
+export default function Header({ onSettings }) {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
@@ -14,6 +14,9 @@ export default function Header() {
         </button>
         {user && (
           <>
+            <button className="settings-btn" onClick={onSettings} title="Settings">
+              &#9881;
+            </button>
             <span className="user-name">{user.display_name}</span>
             <button className="logout-btn" onClick={logout}>Logout</button>
           </>

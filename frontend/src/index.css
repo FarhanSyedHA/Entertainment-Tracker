@@ -811,6 +811,18 @@ body {
   color: #fff;
 }
 
+/* === PWA Standalone === */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .app-header {
+    padding-top: calc(0.8rem + env(safe-area-inset-top));
+  }
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
   .app-header {
@@ -822,8 +834,18 @@ body {
   }
 
   .poster-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-content {
+    max-height: 92vh;
+    border-radius: 12px 12px 0 0;
   }
 
   .modal-header-info {
@@ -834,5 +856,23 @@ body {
 
   .modal-meta {
     padding-top: 0;
+  }
+
+  .filter-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .search-results {
+    max-height: 60vh;
+  }
+
+  .modal-actions {
+    justify-content: center;
+  }
+
+  .status-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

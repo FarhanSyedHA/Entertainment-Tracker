@@ -11,6 +11,10 @@ use App\Actions\WatchHistory\ListAction;
 use App\Actions\WatchHistory\AddAction;
 use App\Actions\WatchHistory\UpdateAction;
 use App\Actions\WatchHistory\DeleteAction;
+use App\Actions\WatchHistory\StatsAction;
+use App\Actions\Token\CreateAction as TokenCreateAction;
+use App\Actions\Token\ListAction as TokenListAction;
+use App\Actions\Token\DeleteAction as TokenDeleteAction;
 use App\Actions\Stremio\WebhookAction;
 use App\Actions\Stremio\ProgressAction;
 use App\Core\Middleware\AuthMiddleware;
@@ -53,6 +57,10 @@ return [
         'action' => ListAction::class,
         'middleware' => [AuthMiddleware::class],
     ],
+    'GET /api/watch-history/stats' => [
+        'action' => StatsAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
     'POST /api/watch-history' => [
         'action' => AddAction::class,
         'middleware' => [AuthMiddleware::class],
@@ -63,6 +71,20 @@ return [
     ],
     'DELETE /api/watch-history/{id}' => [
         'action' => DeleteAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+
+    // API Tokens
+    'GET /api/tokens' => [
+        'action' => TokenListAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+    'POST /api/tokens' => [
+        'action' => TokenCreateAction::class,
+        'middleware' => [AuthMiddleware::class],
+    ],
+    'DELETE /api/tokens/{id}' => [
+        'action' => TokenDeleteAction::class,
         'middleware' => [AuthMiddleware::class],
     ],
 
