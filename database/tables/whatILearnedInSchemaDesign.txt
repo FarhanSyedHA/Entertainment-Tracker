@@ -1,0 +1,40 @@
+1. Use enum pattern for readability.
+   Example: status can be 'in_progress', 'completed' instead of 1, 2 and creating a mapping table.
+
+2. Don't store what you can calculate.
+   Example: season status is derived from episodes — if all episodes completed, season is completed. No need for a season_id in progress.
+   Example: percentage = last_position_seconds / duration_seconds * 100. Store position, calculate percentage.
+   Example: episode_count per season = COUNT(*) from episodes table. No need to store it.
+
+3. No redundant foreign keys.
+   Example: progress doesn't need season_id because episode already links to season. Use JOINs to traverse: progress.episode_id → episode.season_id → season.content_id.
+
+4. Shared data shouldn't have user_id.
+   Example: content table has no user_id — a movie exists regardless of who watches it. The progress table links users to content.
+
+5. Separate internal IDs from real-world identifiers.
+   Example: id (auto_increment) is the database's internal key. season_number is the real-world "Season 2". They're different — never use id as a display number.
+
+6. Always add created_at and updated_at timestamps.
+   They're free (MySQL auto-fills them) and useful for debugging, sorting, analytics. You'll always wish you had them later.
+
+7. Use nullable columns for "either/or" external IDs.
+   Example: tmdb_id and jikan_id on content — a show comes from one API or the other, so both are nullable.
+
+8. duration_seconds belongs at the right level.
+   Movies: duration on content table. TV/anime: duration on episode table. Not both.
+
+9. Column names: no spaces, no reserved words.
+   Example: 'imdb_rating' not 'IMDB rating'. 'duration_seconds' not 'timestamp' (reserved word).
+
+10. One table per concern, link with foreign keys.
+    Content → Seasons → Episodes is a chain. Progress links users to content/episodes. api_tokens links users to auth. Each table has one job.
+
+UNSIGNED — no negative numbers, doubles the max value for IDs/counts
+DECIMAL(3,1) — 3 total digits, 1 after decimal. Perfect for ratings like 8.5
+TEXT — for long strings (descriptions). VARCHAR has a limit, TEXT doesn't practically
+FOREIGN KEY ... ON DELETE CASCADE — if you delete a show, its seasons/episodes/progress auto-delete
+UNIQUE KEY — prevents duplicates. E.g., can't have two Season 1s for the same show
+INDEX — speeds up queries on columns you search by often (type, tmdb_id, token)
+ENGINE=InnoDB — supports transactions and foreign keys
+CHARSET=utf8mb4 — supports all characters including emojis

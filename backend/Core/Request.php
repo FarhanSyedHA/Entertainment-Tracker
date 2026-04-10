@@ -6,6 +6,7 @@ class Request
   private string $method;
   private string $url;
   private ?array $body;
+  private ?int $userId = null;
 
   public function __construct() {
     $this->method = $_SERVER['REQUEST_METHOD'];
@@ -23,5 +24,18 @@ class Request
 
   public function getBody() {
     return $this->body;
+  }
+
+  public function getHeader(string $name): ?string {
+    $key = 'HTTP_' . strtoupper(str_replace('-','_',$name));
+    return $_SERVER[$key] ?? null;
+  }
+
+  public function getUserId() {
+    return $this->userId;
+  }
+
+  public function setUserId(int $userId) {
+    $this->userId = $userId;
   }
 }
