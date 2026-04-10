@@ -1,0 +1,16 @@
+@import 'bulma/css/bulma.min.css';
+
+:root {
+  --bg-dark: #0a0a0f;
+  --bg-card: #12121a;
+  --border-subtle: #1e1e2e;
+  --accent: #ff1744;
+  --accent-glow: rgba(255, 23, 68, 0.3);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #f3f4f6;
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}

@@ -1,0 +1,75 @@
+.register-page {
+  background: var(--bg-dark);
+}
+
+.register-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.register-title span {
+  color: var(--accent);
+}
+
+.register-subtitle {
+  color: #6b7280;
+}
+
+.register-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(255, 23, 68, 0.06);
+}
+
+.register-card .label {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.register-card .input {
+  background: var(--bg-dark);
+  border: 1px solid #2a2a3a;
+  color: white;
+  border-radius: 8px;
+}
+
+.register-card .input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.2);
+}
+
+.register-error {
+  background: rgba(255, 23, 68, 0.1);
+  border: 1px solid rgba(255, 23, 68, 0.2);
+  color: var(--accent);
+  border-radius: 8px;
+}
+
+.register-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: box-shadow 0.3s;
+}
+
+.register-btn:hover {
+  box-shadow: 0 0 20px var(--accent-glow);
+  color: white;
+}
+
+.register-footer {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.register-footer span {
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.register-footer span:hover {
+  text-decoration: underline;
+}
