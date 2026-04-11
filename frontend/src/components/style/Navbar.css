@@ -19,6 +19,12 @@
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.NavOptions button.active {
+  border-left: 3px solid #fff;
+  padding-left: 17px;
 }
 
 .logo {

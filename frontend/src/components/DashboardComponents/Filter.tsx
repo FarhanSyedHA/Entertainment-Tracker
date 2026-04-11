@@ -9,10 +9,10 @@ interface FilterProps {
 export const Filter: React.FC<FilterProps> = ({activeFilter, onFilterChange}) => {
   return (
     <div className="filter">
-    <button onClick={() => onFilterChange('all')}>All</button>
-    <button onClick={() => onFilterChange('movies')}>Movies</button>
-    <button onClick={() => onFilterChange('tvshows')}>Tv shows</button>
-    <button onClick={() => onFilterChange('anime')}>Anime</button>
+    <button className={activeFilter === 'all' ? 'active' : ''} onClick={() => onFilterChange('all')}>All</button>
+    <button className={activeFilter === 'movies' ? 'active' : ''} onClick={() => onFilterChange('movies')}>Movies</button>
+    <button className={activeFilter === 'tvshows' ? 'active' : ''} onClick={() => onFilterChange('tvshows')}>Tv shows</button>
+    <button className={activeFilter === 'anime' ? 'active' : ''} onClick={() => onFilterChange('anime')}>Anime</button>
     </div>
   )
 }

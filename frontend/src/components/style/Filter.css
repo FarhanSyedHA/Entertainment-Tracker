@@ -15,3 +15,9 @@
 .filter button:hover {
   background-color: var(--bg-card);
 }
+
+.filter button.active {
+  background-color: #2a2a3a;
+  color: #fff;
+  border-color: #2a2a3a;
+}
