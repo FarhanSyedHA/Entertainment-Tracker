@@ -1,8 +1,12 @@
 import '../style/Navbar.css'
-interface NavbarProps {}
+import type { PageTypes } from '../../interface/Types'
 
+interface NavbarProps {
+  selectedPage: PageTypes;
+  onPageChange: (page: PageTypes) => void
+}
 
-export const Navbar: React.FC<NavbarProps> = () => {
+export const Navbar: React.FC<NavbarProps> = ({selectedPage,onPageChange}) => {
   return (
     <div className="NavOptions">
       <div>
@@ -10,10 +14,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
           <span>F Tracker</span>
         </div>
         <div>
-          <button>Home</button>
-          <button>In Progress</button>
-          <button>Watched</button>
-          <button>Profile</button>
+          <button onClick={() => onPageChange('home')}>Home</button>
+          <button onClick={() => onPageChange('inprogress')}>In Progress</button>
+          <button onClick={() => onPageChange('watched')}>Watched</button>
+          <button onClick={() => onPageChange('profile')}>Profile</button>
         </div>
       </div>
       <div>

@@ -1,7 +1,13 @@
 import { Filter } from "./Filter"
 import '../style/Search.css'
+import type { FilterTypes } from "../../interface/Types"
 
-export const Search: React.FC = () => {
+interface SearchProps {
+  activeFilter: FilterTypes;
+  onFilterChange: (filter: FilterTypes) => void
+}
+
+export const Search: React.FC<SearchProps> = ({activeFilter,onFilterChange}) => {
   return (
     <>
     <div className="search-container">
@@ -10,7 +16,7 @@ export const Search: React.FC = () => {
         placeholder="Search movies, shows, anime..."
         className="search-input"
       />
-    <Filter />
+    <Filter activeFilter={activeFilter} onFilterChange={onFilterChange}/>
     </div>
     </>
   )

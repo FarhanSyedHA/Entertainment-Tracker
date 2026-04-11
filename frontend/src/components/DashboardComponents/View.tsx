@@ -1,10 +1,14 @@
-import { useState } from "react"
 import '../style/View.css'
 import { Content } from "./Content"
 import Profile from "./Profile"
+import type { PageTypes } from '../../interface/Types'
 
-export const View: React.FC = () => {
-  const [selectedPage, setSelectedPage] = useState<'home' | 'watched' | 'profile'> ('home')
+interface ViewProps {
+  selectedPage: PageTypes
+}
+
+export const View: React.FC<ViewProps> = ({selectedPage}) => {
+  
   return (
     <div className="view">
       {selectedPage === 'profile' ? <Profile /> : <Content/>}

@@ -1,12 +1,18 @@
+import type { FilterTypes } from '../../interface/Types'
 import '../style/Filter.css'
 
-export const Filter: React.FC = () => {
+interface FilterProps {
+  activeFilter: FilterTypes;
+  onFilterChange: (filter: FilterTypes) => void
+}
+
+export const Filter: React.FC<FilterProps> = ({activeFilter, onFilterChange}) => {
   return (
     <div className="filter">
-    <button>All</button>
-    <button>Movies</button>
-    <button>Tv shows</button>
-    <button>Anime</button>
+    <button onClick={() => onFilterChange('all')}>All</button>
+    <button onClick={() => onFilterChange('movies')}>Movies</button>
+    <button onClick={() => onFilterChange('tvshows')}>Tv shows</button>
+    <button onClick={() => onFilterChange('anime')}>Anime</button>
     </div>
   )
 }
