@@ -12,7 +12,12 @@ class Database {
     $port = getenv('DB_PORT');
     $dbname = getenv('DB_NAME');
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname";
-    $this->pdo = new \PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'));
+    $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
+    if (getenv('APP_ENV') === 'production' || str_contains($host, 'tidbcloud.com')) {
+      $options[\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+      $options[\PDO::MYSQL_ATTR_SSL_CA] = '';
+    }
+    $this->pdo = new \PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'), $options);
   }
 
   public static function getInstance(): self

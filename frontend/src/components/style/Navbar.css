@@ -1,0 +1,37 @@
+.NavOptions {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+  width: 200px;
+  padding: 5px;
+}
+
+.NavOptions button {
+  width: 100%;
+  padding: 10px 20px;
+  margin: 3px 0px;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.logo span {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 40px;
+}

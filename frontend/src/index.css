@@ -1,11 +1,15 @@
-@import 'bulma/css/bulma.min.css';
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
   --bg-dark: #0a0a0f;
   --bg-card: #12121a;
   --border-subtle: #1e1e2e;
-  --accent: #ff1744;
-  --accent-glow: rgba(255, 23, 68, 0.3);
+  --accent: #E50914;
+  --accent-glow: rgba(229, 9, 20, 0.3);
 }
 
 body {
