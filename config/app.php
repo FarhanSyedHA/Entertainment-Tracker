@@ -10,5 +10,5 @@ foreach($allLinesArray as $line) {
   $line = trim($line);
   if (str_starts_with($line, '#')) continue;
   if ($line === '') continue;
-  putenv($line);
+  putenv(rtrim($line, "\r\n"));
 }

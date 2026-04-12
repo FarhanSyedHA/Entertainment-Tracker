@@ -11,3 +11,7 @@ export const register = (username: string, email: string, password: string) => {
 export const getTrending = () => {
   return callAPI('/get-trending-shows', 'GET');
 }
+
+export const getDetails = (id: number, type: string) => {
+  return callAPI(`/content-details?id=${id}&type=${type}`, 'GET');
+}

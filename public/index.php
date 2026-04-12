@@ -10,6 +10,7 @@ use App\Actions\Test;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Content\TrendingShowsAction;
+use App\Actions\Content\ContentDetailsAction;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\CorsMiddleware;
 
@@ -19,6 +20,7 @@ $router
 ->addRoute( 'POST', '/api/register', RegisterAction::class, [ CorsMiddleware::class ] )
 ->addRoute( 'POST', '/api/login', LoginAction::class, [ CorsMiddleware::class ] )
 ->addRoute( 'GET', '/api/get-trending-shows', TrendingShowsAction::class, [ CorsMiddleware::class ] )
+->addRoute( 'GET', '/api/content-details', ContentDetailsAction::class, [ CorsMiddleware::class ] )
 ->addRoute( 'GET', '/api/content', Test::class, [ CorsMiddleware::class, AuthMiddleware::class ] );
 
 $request = new Request();

@@ -17,4 +17,10 @@ class JikanService
     $raw = HttpClient::get($this->baseJikanUrl . '/top/anime?filter=airing');
     return JikanAdapter::toShows($raw);
   }
+
+  public function getAnimeDetails(int $id)
+  {
+    $raw = HttpClient::get($this->baseJikanUrl . '/anime/' . $id . '/full');
+    return JikanAdapter::toDetails($raw);
+  }
 }

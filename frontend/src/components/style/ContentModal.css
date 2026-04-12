@@ -1,0 +1,131 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-card {
+  background: #18181f;
+  border-radius: 12px;
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  color: #fff;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.modal-backdrop-img {
+  width: 100%;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.modal-backdrop-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, #18181f);
+}
+
+.modal-body {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  margin-top: -80px;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-body.no-backdrop {
+  margin-top: 0;
+  padding-top: 40px;
+}
+
+.modal-poster {
+  width: 140px;
+  height: 210px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.modal-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-info h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+.modal-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.modal-genre {
+  background: #2a2a33;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.modal-overview {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ddd;
+  margin: 0;
+}
+
+.modal-loading {
+  color: #888;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .modal-body {
+    flex-direction: column;
+    margin-top: -60px;
+  }
+  .modal-poster {
+    width: 120px;
+    height: 180px;
+  }
+  .modal-backdrop-img {
+    height: 160px;
+  }
+}

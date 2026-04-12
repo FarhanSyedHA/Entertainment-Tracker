@@ -3,16 +3,17 @@ import type { Show } from '../../interface/Show'
 
 interface ShowsGridProps {
   title: string;
-  shows: Show[]
+  shows: Show[];
+  onSelect: (show: Show) => void;
 }
 
-export const ShowsGrid: React.FC<ShowsGridProps> = ({ title, shows }) => {
+export const ShowsGrid: React.FC<ShowsGridProps> = ({ title, shows, onSelect }) => {
   return (
     <div className="show-section">
       <h2>{title}</h2>
       <div className="show-row">
         {shows?.map((show) => (
-          <div className="show-card" key={`${show.type}-${show.id}`}>
+          <div className="show-card" key={`${show.type}-${show.id}`} onClick={() => onSelect(show)}>
             {show.poster
               ? <img src={show.poster} alt={show.title} />
               : <span className="show-card-fallback">{show.title}</span>

@@ -22,8 +22,19 @@ class TmdbService
   
   public function getTrendingTvShows()
   {
-    $raw = HttpClient::get($this->baseTmdbUrl . '/trending/tv/week?api_key=' . $this->tmdbApiKey); 
+    $raw = HttpClient::get($this->baseTmdbUrl . '/trending/tv/week?api_key=' . $this->tmdbApiKey);
     return TmdbAdapter::toShows($raw, 'tvshows');
   }
 
+  public function getMovieDetails(int $id)
+  {
+    $raw = HttpClient::get($this->baseTmdbUrl . '/movie/' . $id . '?api_key=' . $this->tmdbApiKey);
+    return TmdbAdapter::toDetails($raw, 'movie');
+  }
+
+  public function getTvDetails(int $id)
+  {
+    $raw = HttpClient::get($this->baseTmdbUrl . '/tv/' . $id . '?api_key=' . $this->tmdbApiKey);
+    return TmdbAdapter::toDetails($raw, 'tvshows');
+  }
 }

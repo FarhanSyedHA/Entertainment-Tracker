@@ -26,6 +26,10 @@ class Request
     return $this->body;
   }
 
+  public function getQuery(string $name): ?string {
+    return $_GET[$name] ?? null;
+  }
+
   public function getHeader(string $name): ?string {
     $key = 'HTTP_' . strtoupper(str_replace('-','_',$name));
     return $_SERVER[$key] ?? null;

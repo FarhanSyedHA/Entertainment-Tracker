@@ -22,4 +22,21 @@ class JikanAdapter
       return true;
     }));
   }
+
+  public static function toDetails(array $raw): array
+  {
+    $item = $raw['data'] ?? [];
+    return [
+      'id' => $item['mal_id'] ?? null,
+      'title' => $item['title'] ?? '',
+      'poster' => $item['images']['jpg']['large_image_url'] ?? $item['images']['jpg']['image_url'] ?? null,
+      'backdrop' => $item['trailer']['images']['maximum_image_url'] ?? null,
+      'rating' => $item['score'] ?? 0,
+      'year' => isset($item['aired']['from']) ? substr($item['aired']['from'], 0, 4) : '',
+      'type' => 'anime',
+      'overview' => $item['synopsis'] ?? '',
+      'genres' => array_map(fn($g) => $g['name'], $item['genres'] ?? []),
+      'runtime' => $item['duration'] ?? null,
+    ];
+  }
 }
