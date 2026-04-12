@@ -8,12 +8,11 @@ function App() {
   const auth = useAuth()
   const [page, setPage] = useState<'login' | 'register'>('login');
 
-  // if (!auth?.token) {
-  //   return page === 'login' ?
-  //     <LoginPage onSwitch={() => setPage('register')}/> :
-  //     <RegisterPage onSwitch={() => setPage('login')}/>
-  // }
-
+  if (!auth?.token) {
+    return page === 'login' ?
+      <LoginPage onSwitch={() => setPage('register')}/> :
+      <RegisterPage onSwitch={() => setPage('login')}/>
+  }
 
   return <Dashboard />
 }

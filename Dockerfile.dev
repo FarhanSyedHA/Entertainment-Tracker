@@ -1,17 +1,28 @@
 #  FROM → RUN → WORKDIR → COPY → EXPOSE → CMD
 # Docker is used for Node/MySQL, we just don't need a custom Dockerfile for them. They'll still run as Docker containers via docker-compose.
-FROM php:8.2-cli #gives me a linux container with php 8.2 installed
+#gives me a linux container with php 8.2 installed
+FROM php:8.2-cli 
 
 #run is used for installing packages on this container.
-RUN docker-php-ext-install pdo pdo_mysql 
+RUN docker-php-ext-install pdo pdo_mysql
 
-WORKDIR /app #tells the container to run commands in this directory
+#copy composer binary from the official composer image (needed for vendor/autoload.php)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY . /app #localmachine to conatiner (copy code)
+#tells the container to run commands in this directory
+WORKDIR /app
 
-EXPOSE 8000 #means run this on port 8000
+#localmachine to conatiner (copy code)
+COPY . /app
 
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"] #the command that runs when the container starts, it starts a php server on port 8000 and serves files from the public directory -S = start server, 0.0.0.0 means listen on all interfaces, -t public means serve files from the public directory
+#install php dependencies -> creates vendor/autoload.php
+RUN composer install --no-dev --optimize-autoloader
+
+ #means run this on port 8000
+EXPOSE 8000
+
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"] 
+#the command that runs when the container starts, it starts a php server on port 8000 and serves files from the public directory -S = start server, 0.0.0.0 means listen on all interfaces, -t public means serve files from the public directory
 
 
 

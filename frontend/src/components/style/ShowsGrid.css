@@ -18,18 +18,70 @@
 
 .show-card {
   min-width: 150px;
-  height: 225px;
+  width: 150px;
   background-color: var(--bg-card);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.show-card:hover {
+  transform: scale(1.03);
 }
 
 .show-card img {
   width: 150px;
   height: 225px;
-  border-radius: 8px;
   object-fit: cover;
+  display: block;
+}
+
+.show-card-fallback {
+  width: 150px;
+  height: 225px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 8px;
+  font-size: 13px;
+  background-color: var(--bg-card);
+}
+
+.show-card-info {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.show-card-title {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.show-card-rating {
+  font-size: 12px;
+  color: #ffb400;
+}
+
+@media (max-width: 768px) {
+  .show-card,
+  .show-card img,
+  .show-card-fallback {
+    min-width: 120px;
+    width: 120px;
+  }
+  .show-card img,
+  .show-card-fallback {
+    height: 180px;
+  }
 }

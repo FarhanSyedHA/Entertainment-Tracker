@@ -6,7 +6,7 @@ export function callAPI(endpoint: string, method: 'GET' | 'POST' | 'PUT' | 'DELE
                 {
                   method,
                   headers: { 'Content-Type': 'application/json' },
-                  body: body ? JSON.stringify(body) : null,
+                  body: body ? JSON.stringify(body) : null,     
                 }
               )
               .then((response) => response.json())

@@ -23,6 +23,18 @@ class Router
   {
     $method = $request->getMethod();
     $path = $request->getPath();
+
+    //frontend calls fetch and the browser sees different origin and sends in OPTIONS method which is to retrieve the cors details that says whos allowed and what methods. 
+    if($method === 'OPTIONS') {
+      $origin = getenv('CORS_ORIGIN') ?: '*';
+      header('Access-Control-Allow-Origin: ' . $origin);
+      header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+      header('Access-Control-Allow-Headers: Content-Type, Authorization');
+      header('Access-Control-Allow-Credentials: true');
+      http_response_code(200);
+      exit;
+    }
+
     $route = $this->routes[$method][$path] ?? null;
 
     if (!$route) {

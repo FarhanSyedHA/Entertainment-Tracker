@@ -1,5 +1,8 @@
 export interface Show {
   id: number;
-  //image: URL;
-  //yet to think about more depending on open APIs
+  title: string;
+  poster: string | null;
+  rating: number;
+  year: string;
+  type: string;
 }
