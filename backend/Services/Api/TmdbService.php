@@ -2,8 +2,10 @@
 namespace App\Services\Api;
 
 use App\Adapters\TmdbAdapter;
+use App\Interfaces\MoviesSourceInterface;
+use App\Interfaces\TvShowsSourceInterface;
 
-class TmdbService
+class TmdbService implements MoviesSourceInterface,TvShowsSourceInterface
 {
   private string $baseTmdbUrl;
   private string $tmdbApiKey;
@@ -14,27 +16,41 @@ class TmdbService
     $this->tmdbApiKey = getenv('TMDB_API_KEY');
   }
 
-  public function getTrendingMovies()
+  public function getTrendingMovies(): array
   {
     $raw = HttpClient::get($this->baseTmdbUrl . '/trending/movie/week?api_key=' . $this->tmdbApiKey); 
     return TmdbAdapter::toShows($raw, 'movie');
   }
   
-  public function getTrendingTvShows()
+  public function getTrendingTvShows(): array
   {
     $raw = HttpClient::get($this->baseTmdbUrl . '/trending/tv/week?api_key=' . $this->tmdbApiKey);
     return TmdbAdapter::toShows($raw, 'tvshows');
   }
 
-  public function getMovieDetails(int $id)
+  public function getMovieDetails(int $id): array
   {
     $raw = HttpClient::get($this->baseTmdbUrl . '/movie/' . $id . '?api_key=' . $this->tmdbApiKey);
     return TmdbAdapter::toDetails($raw, 'movie');
   }
 
-  public function getTvDetails(int $id)
+  public function getTvShowDetails(int $id): array
   {
     $raw = HttpClient::get($this->baseTmdbUrl . '/tv/' . $id . '?api_key=' . $this->tmdbApiKey);
     return TmdbAdapter::toDetails($raw, 'tvshows');
+  }
+
+  public function searchMovies(string $searchQuery): array
+  {
+    $searchQuery = urlencode($searchQuery);
+    $raw = HttpClient::get($this->baseTmdbUrl . '/search/movie?query=' . $searchQuery . '&include_adult=false&api_key=' . $this->tmdbApiKey);
+    return TmdbAdapter::toShows($raw, 'movie');
+  }
+
+  public function searchTvShows(string $searchQuery): array
+  {
+    $searchQuery = urlencode($searchQuery);
+    $raw = HttpClient::get($this->baseTmdbUrl . '/search/tv?query=' . $searchQuery . '&include_adult=false&api_key=' . $this->tmdbApiKey);
+    return TmdbAdapter::toShows($raw, 'tvshows');
   }
 }

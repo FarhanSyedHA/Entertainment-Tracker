@@ -19,7 +19,7 @@ class ContentDetailsAction
 
     $details = match ($type) {
       'movie' => (new TmdbService())->getMovieDetails((int) $id),
-      'tvshows' => (new TmdbService())->getTvDetails((int) $id),
+      'tvshows' => (new TmdbService())->getTvShowDetails((int) $id),
       'anime' => (new JikanService())->getAnimeDetails((int) $id),
       default => null,
     };
