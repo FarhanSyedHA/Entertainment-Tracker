@@ -4,7 +4,13 @@ import { ShowsGrid } from "./ShowsGrid"
 import { ContentModal } from "./ContentModal"
 import type { Show } from '../../interface/Show'
 import type { FilterTypes } from "../../interface/Types"
-import { getTrending } from "../../api/api"
+import { getTrending, search } from "../../api/api"
+
+interface ContentFormat {
+  movies: Show[];
+  tvshows: Show[];
+  anime: Show[];
+}
 
 export const Content: React.FC = () => {
   const [showMovies, setShowMovies] = useState<Show[]>([]);
@@ -13,13 +19,29 @@ export const Content: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterTypes>('all');
   const [selectedShow, setSelectedShow] = useState<Show | null>(null);
 
-  useEffect(() => {
-    getTrending().then((res) => {
+  const setContent = (res: ContentFormat) => {
       setShowMovies(res.movies);
       setShowTVshows(res.tvshows);
       setShowAnime(res.anime);
+  }
+
+  useEffect(() => {
+    getTrending().then((res) => {
+      setContent(res);
     }).catch((e) => console.error('unable to fetch shows: ', e));
   }, [])
+
+  const handleSearch = (searchQuery: string) => {
+    if (searchQuery === '') {
+      getTrending().then((res) => {
+      setContent(res);
+    }).catch((e) => console.error('unable to fetch shows: ', e));
+      return;
+    }
+    search(searchQuery).then((res) => {
+      setContent(res);
+    }).catch((e) => console.error(e));
+  }
 
   const sections = [
     { filter: 'movies', title: 'Movies', shows: showMovies },
@@ -30,7 +52,7 @@ export const Content: React.FC = () => {
   return (
     <>
       <div className="search">
-        <Search activeFilter={activeFilter} onFilterChange={setActiveFilter} />
+        <Search activeFilter={activeFilter} onFilterChange={setActiveFilter} onSearch={handleSearch}/>
       </div>
       {
         sections

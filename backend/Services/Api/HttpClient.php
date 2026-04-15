@@ -14,7 +14,7 @@ class HttpClient
         'timeout' => 10, //if the api doesnt respond give up in 10 secs
       ]
     ]);
-    $response =  file_get_contents($url, false, $context);
+    $response =  @file_get_contents($url, false, $context);
 
     if($response === false) return ['error' => 'Request Failed'];
 

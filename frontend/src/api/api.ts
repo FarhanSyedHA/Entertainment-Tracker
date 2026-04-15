@@ -15,3 +15,7 @@ export const getTrending = () => {
 export const getDetails = (id: number, type: string) => {
   return callAPI(`/content-details?id=${id}&type=${type}`, 'GET');
 }
+
+export const search = (searchQuery: string) => {
+  return callAPI(`/search?searchQuery=${searchQuery}`, 'GET');
+}
