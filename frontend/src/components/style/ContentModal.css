@@ -116,6 +116,70 @@
   font-size: 13px;
 }
 
+.modal-genres-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-genres-row .modal-genres {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-watch-chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.modal-watch-chip:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.modal-watch-chip:active:not(:disabled) { transform: translateY(0); }
+.modal-watch-chip:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.modal-watch-chip-icon {
+  font-size: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+}
+
+.modal-watch-chip-label { line-height: 1; }
+
+.modal-watch-chip-watched {
+  background: rgba(74, 222, 128, 0.16);
+  border-color: rgba(74, 222, 128, 0.5);
+  color: #4ade80;
+}
+
+.modal-watch-chip-watched:hover:not(:disabled) {
+  background: rgba(74, 222, 128, 0.24);
+  border-color: rgba(74, 222, 128, 0.7);
+  color: #86efac;
+}
+
 @media (max-width: 600px) {
   .modal-body {
     flex-direction: column;

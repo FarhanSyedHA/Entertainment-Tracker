@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import '../style/ContentModal.css'
 import type { Show } from '../../interface/Show'
 import type { ShowDetails } from '../../interface/ShowDetails'
-import { getDetails } from '../../api/api'
+import { getDetails, markAsWatched, unmarkWatched } from '../../api/api'
+import { useWatched } from '../../context/WatchedContext'
+import { useToast } from '../../context/ToastContext'
 
 interface Props {
   show: Show;
@@ -12,6 +14,30 @@ interface Props {
 export const ContentModal: React.FC<Props> = ({ show, onClose }) => {
   const [details, setDetails] = useState<ShowDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [pending, setPending] = useState(false);
+  const { isWatched, setWatched } = useWatched();
+  const { showToast } = useToast();
+
+  const watched = isWatched(show.type, show.id);
+  const source: 'tmdb' | 'jikan' = show.type === 'anime' ? 'jikan' : 'tmdb';
+  const backendType: 'movie' | 'tv' | 'anime' = show.type === 'tvshows' ? 'tv' : (show.type as 'movie' | 'anime');
+
+  const handleToggleWatched = () => {
+    setPending(true);
+    const promise = watched
+      ? unmarkWatched(source, show.id, backendType)
+      : markAsWatched(source, show.id, backendType);
+    promise
+      .then(() => {
+        setWatched(show.type, show.id, !watched);
+        showToast(watched ? 'Removed from watched' : 'Marked as watched', 'success');
+      })
+      .catch((e) => {
+        console.error(e);
+        showToast(watched ? 'Failed to unmark' : 'Failed to mark as watched', 'error');
+      })
+      .finally(() => setPending(false));
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -49,13 +75,28 @@ export const ContentModal: React.FC<Props> = ({ show, onClose }) => {
 
             {loading && <p className="modal-loading">Loading…</p>}
 
-            {details?.genres && details.genres.length > 0 && (
+            <div className="modal-genres-row">
               <div className="modal-genres">
-                {details.genres.map((g) => <span key={g} className="modal-genre">{g}</span>)}
+                {details?.genres?.map((g) => <span key={g} className="modal-genre">{g}</span>)}
               </div>
-            )}
+              <button
+                className={`modal-watch-chip ${watched ? 'modal-watch-chip-watched' : ''}`}
+                onClick={handleToggleWatched}
+                disabled={pending}
+                aria-label={watched ? 'Remove from watched' : 'Mark as watched'}
+                title={watched ? 'Remove from watched' : 'Mark as watched'}
+              >
+                <span className="modal-watch-chip-icon">
+                  {pending ? '…' : watched ? '✓' : '+'}
+                </span>
+                <span className="modal-watch-chip-label">
+                  {pending ? 'Saving' : watched ? 'Watched' : 'Watch'}
+                </span>
+              </button>
+            </div>
 
             {details?.overview && <p className="modal-overview">{details.overview}</p>}
+
           </div>
         </div>
       </div>

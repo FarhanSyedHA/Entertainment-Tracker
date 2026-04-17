@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import '../style/Navbar.css'
 import type { PageTypes } from '../../interface/Types'
 import { useAuth } from '../../context/AuthContext';
@@ -7,30 +8,76 @@ interface NavbarProps {
   onPageChange: (page: PageTypes) => void
 }
 
-export const Navbar: React.FC<NavbarProps> = ({selectedPage,onPageChange}) => {
+interface NavItem {
+  id: PageTypes;
+  label: string;
+}
 
+const NAV_ITEMS: NavItem[] = [
+  { id: 'home',       label: 'Home' },
+  { id: 'inprogress', label: 'In Progress' },
+  { id: 'watched',    label: 'Watched' },
+  { id: 'profile',    label: 'Profile' },
+]
+
+export const Navbar: React.FC<NavbarProps> = ({ selectedPage, onPageChange }) => {
   const auth = useAuth()
+  const [open, setOpen] = useState(false)
 
-  const handleLogout = () => {
-    auth?.logout()
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const handleNav = (id: PageTypes) => {
+    onPageChange(id)
+    setOpen(false)
   }
 
   return (
-    <div className="NavOptions">
-      <div>
-        <div className="logo" onClick={() => new Audio("./faaa.mp3").play()}>
-          <span>F Tracker</span>
+    <>
+      <header className="topbar">
+        <button
+          className="hamburger"
+          aria-label="Open navigation"
+          aria-expanded={open}
+          onClick={() => setOpen(true)}
+        >
+          <span /><span /><span />
+        </button>
+        <div className="topbar-logo" onClick={() => new Audio('./faaa.mp3').play()}>F Tracker</div>
+      </header>
+
+      {open && <div className="nav-scrim" onClick={() => setOpen(false)} />}
+
+      <aside className={`sidebar ${open ? 'sidebar-open' : ''}`} aria-label="Main navigation">
+        <div className="sidebar-header">
+          <div className="sidebar-logo" onClick={() => new Audio('./faaa.mp3').play()}>
+            <span className="sidebar-logo-mark">F</span>
+            <span className="sidebar-logo-text">Tracker</span>
+          </div>
+          <button className="sidebar-close" aria-label="Close navigation" onClick={() => setOpen(false)}>✕</button>
         </div>
-        <div>
-          <button className={selectedPage === 'home' ? 'active' : ''} onClick={() => onPageChange('home')}>Home</button>
-          <button className={selectedPage === 'inprogress' ? 'active' : ''} onClick={() => onPageChange('inprogress')}>In Progress</button>
-          <button className={selectedPage === 'watched' ? 'active' : ''} onClick={() => onPageChange('watched')}>Watched</button>
-          <button className={selectedPage === 'profile' ? 'active' : ''} onClick={() => onPageChange('profile')}>Profile</button>
+
+        <nav className="sidebar-nav">
+          {NAV_ITEMS.map(item => (
+            <button
+              key={item.id}
+              className={`sidebar-item ${selectedPage === item.id ? 'sidebar-item-active' : ''}`}
+              onClick={() => handleNav(item.id)}
+            >
+              <span className="sidebar-item-label">{item.label}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className="sidebar-footer">
+          <button className="sidebar-logout" onClick={() => auth?.logout()}>
+            <span className="sidebar-item-label">Logout</span>
+          </button>
         </div>
-      </div>
-      <div>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    </div>
+      </aside>
+    </>
   )
 }

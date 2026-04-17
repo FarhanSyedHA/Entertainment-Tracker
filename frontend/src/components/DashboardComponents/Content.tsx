@@ -5,6 +5,7 @@ import { ContentModal } from "./ContentModal"
 import type { Show } from '../../interface/Show'
 import type { FilterTypes } from "../../interface/Types"
 import { getTrending, search } from "../../api/api"
+import { useWatched } from "../../context/WatchedContext"
 
 interface ContentFormat {
   movies: Show[];
@@ -18,11 +19,13 @@ export const Content: React.FC = () => {
   const [showAnimes, setShowAnime] = useState<Show[]>([]);
   const [activeFilter, setActiveFilter] = useState<FilterTypes>('all');
   const [selectedShow, setSelectedShow] = useState<Show | null>(null);
+  const { refreshFor } = useWatched();
 
   const setContent = (res: ContentFormat) => {
       setShowMovies(res.movies);
       setShowTVshows(res.tvshows);
       setShowAnime(res.anime);
+      refreshFor([...res.movies, ...res.tvshows, ...res.anime]);
   }
 
   useEffect(() => {
