@@ -92,7 +92,10 @@
      the left-side inset for rotated/edge-case devices. */
   padding-top: max(20px, calc(env(safe-area-inset-top, 28px) + 8px));
   padding-left: max(14px, env(safe-area-inset-left, 0px));
-  padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  /* Android's gesture-nav bar is ~24dp. env(safe-area-inset-bottom) returns 0
+     in Capacitor without the StatusBar plugin, so fall back to 32px to ensure
+     the Logout button isn't covered by the system gesture pill. */
+  padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
   background: #0f0f14;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   box-sizing: border-box;
