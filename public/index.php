@@ -4,6 +4,27 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config/app.php';
 
+// Production: hide PHP's default HTML error output. A leaked PDO stack trace
+// contains the DB host, username, and partial password — anyone hitting a
+// broken endpoint would see them. Still log to stderr so Render captures it.
+$isProd = getenv('APP_ENV') === 'production' || getenv('RENDER') !== false;
+if ($isProd) {
+  ini_set('display_errors', '0');
+  ini_set('display_startup_errors', '0');
+  ini_set('log_errors', '1');
+  error_reporting(E_ALL);
+
+  set_exception_handler(function (\Throwable $e) {
+    error_log('[uncaught] ' . $e::class . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+    if (!headers_sent()) {
+      http_response_code(500);
+      header('Content-Type: application/json');
+    }
+    echo json_encode(['error' => 'Internal server error']);
+    exit;
+  });
+}
+
 use App\Core\Router;
 use App\Core\Request;
 use App\Middleware\AuthMiddleware;
