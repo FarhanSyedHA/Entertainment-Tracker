@@ -37,6 +37,17 @@ class JikanAdapter
       'overview' => $item['synopsis'] ?? '',
       'genres' => array_map(fn($g) => $g['name'], $item['genres'] ?? []),
       'runtime' => $item['duration'] ?? null,
+      'total_episodes' => isset($item['episodes']) ? (int) $item['episodes'] : null,
     ];
+  }
+
+  public static function toEpisodes(array $rawEpisodes): array
+  {
+    return array_values(array_map(fn($e) => [
+      'episode_number' => (int) ($e['mal_id'] ?? 0),
+      'title' => $e['title'] ?? null,
+      'runtime_seconds' => null,
+      'air_date' => $e['aired'] ?? null,
+    ], $rawEpisodes));
   }
 }

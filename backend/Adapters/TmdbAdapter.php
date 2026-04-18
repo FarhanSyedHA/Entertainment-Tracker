@@ -31,4 +31,24 @@ class TmdbAdapter
       'runtime' => $raw['runtime'] ?? ($raw['episode_run_time'][0] ?? null),
     ];
   }
+
+  public static function toSeasonSummaries(array $rawSeasons): array
+  {
+    $filtered = array_filter($rawSeasons, fn($s) => ($s['season_number'] ?? 0) >= 1);
+    return array_values(array_map(fn($s) => [
+      'season_number' => (int) $s['season_number'],
+      'name' => $s['name'] ?? ('Season ' . $s['season_number']),
+      'episode_count' => (int) ($s['episode_count'] ?? 0),
+    ], $filtered));
+  }
+
+  public static function toEpisodes(array $rawEpisodes): array
+  {
+    return array_values(array_map(fn($e) => [
+      'episode_number' => (int) ($e['episode_number'] ?? 0),
+      'title' => $e['name'] ?? null,
+      'runtime_seconds' => !empty($e['runtime']) ? ((int) $e['runtime']) * 60 : null,
+      'air_date' => $e['air_date'] ?? null,
+    ], $rawEpisodes));
+  }
 }

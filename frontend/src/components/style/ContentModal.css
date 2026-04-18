@@ -180,6 +180,13 @@
   color: #86efac;
 }
 
+.modal-seasons-summary {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #a1a1aa;
+  letter-spacing: 0.01em;
+}
+
 @media (max-width: 600px) {
   .modal-body {
     flex-direction: column;

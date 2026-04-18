@@ -31,4 +31,22 @@ class JikanService implements AnimeSourceInterface
     $raw = HttpClient::get($this->baseJikanUrl . '/anime?q=' . $searchQuery . '&sfw=true&limit=25');
     return JikanAdapter::toShows($raw);
   }
+
+  public function getAnimeEpisodes(int $id): array
+  {
+    $all = [];
+    $page = 1;
+    $maxPages = 20;
+    while ($page <= $maxPages) {
+      $raw = HttpClient::get($this->baseJikanUrl . '/anime/' . $id . '/episodes?page=' . $page);
+      $items = $raw['data'] ?? [];
+      if (empty($items)) break;
+      foreach ($items as $ep) $all[] = $ep;
+      $hasNext = $raw['pagination']['has_next_page'] ?? false;
+      if (!$hasNext) break;
+      $page++;
+      usleep(350000);
+    }
+    return $all;
+  }
 }

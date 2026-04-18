@@ -53,6 +53,9 @@ export const ContentModal: React.FC<Props> = ({ show, onClose }) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose])
 
+  const hasSeasons = !!details?.seasons?.length;
+  const isAnime = show.type === 'anime';
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
@@ -97,9 +100,20 @@ export const ContentModal: React.FC<Props> = ({ show, onClose }) => {
 
             {details?.overview && <p className="modal-overview">{details.overview}</p>}
 
+            {hasSeasons && (
+              <div className="modal-seasons-summary">
+                {isAnime
+                  ? `${details!.seasons![0].episode_count} ${details!.seasons![0].episode_count === 1 ? 'episode' : 'episodes'}`
+                  : `${details!.seasons!.length} ${details!.seasons!.length === 1 ? 'season' : 'seasons'} · ${totalEpisodes(details!)} episodes`
+                }
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   )
 }
+
+const totalEpisodes = (d: ShowDetails): number =>
+  (d.seasons ?? []).reduce((sum, s) => sum + s.episode_count, 0);

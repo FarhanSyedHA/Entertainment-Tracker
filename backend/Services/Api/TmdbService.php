@@ -40,6 +40,18 @@ class TmdbService implements MoviesSourceInterface,TvShowsSourceInterface
     return TmdbAdapter::toDetails($raw, 'tvshows');
   }
 
+  public function getTvShowSeasons(int $id): array
+  {
+    $raw = HttpClient::get($this->baseTmdbUrl . '/tv/' . $id . '?api_key=' . $this->tmdbApiKey);
+    return $raw['seasons'] ?? [];
+  }
+
+  public function getSeasonEpisodes(int $tvId, int $seasonNumber): array
+  {
+    $raw = HttpClient::get($this->baseTmdbUrl . '/tv/' . $tvId . '/season/' . $seasonNumber . '?api_key=' . $this->tmdbApiKey);
+    return $raw['episodes'] ?? [];
+  }
+
   public function searchMovies(string $searchQuery): array
   {
     $searchQuery = urlencode($searchQuery);
