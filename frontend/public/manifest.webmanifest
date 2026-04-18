@@ -1,0 +1,17 @@
+{
+  "name": "Entertainment Tracker",
+  "short_name": "Tracker",
+  "description": "Track movies, TV shows, and anime you've watched.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f10",
+  "theme_color": "#863bff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
