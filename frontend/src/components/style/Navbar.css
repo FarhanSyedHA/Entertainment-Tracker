@@ -16,7 +16,10 @@
      env(safe-area-inset-top) = 0 even on notched phones. Fall back to 28px
      (the Android status-bar height in dp) so the topbar always clears the
      camera/notch. On iOS / devices that actually report the inset, env() wins. */
-  padding-top: max(40px, env(safe-area-inset-top, 40px));
+  /* With @capacitor/status-bar overlay=false, Android reports the real cutout
+     height here. 8px is a tiny fallback for browsers that don't honor the
+     env() lookup at all (older PWAs); on real hardware env() always wins. */
+  padding-top: max(8px, env(safe-area-inset-top, 8px));
   padding-left: max(8px, env(safe-area-inset-left, 0px));
   padding-right: max(8px, env(safe-area-inset-right, 0px));
   box-sizing: content-box;
@@ -107,11 +110,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 20px 16px;
-  /* Android WebViews without the StatusBar plugin return env(safe-area-inset-top)=0.
-     Most punch-hole Android cutouts are 36-44dp; use 56px as a safe fallback so
-     the logo clears the camera on wide devices too. On iOS / phones that report
-     the real inset, env() wins via max(). */
-  padding-top: max(56px, calc(env(safe-area-inset-top, 56px) + 20px));
+  /* With @capacitor/status-bar overlay=false, the WebView starts below the
+     system status bar — so env(safe-area-inset-top) is 0 in normal flow and
+     we just need 20px of breathing room. (If the user later enables edge-to-
+     edge, env() becomes non-zero and still works via max().) */
+  padding-top: max(20px, calc(env(safe-area-inset-top, 0px) + 20px));
   padding-left: max(20px, env(safe-area-inset-left, 0px));
   margin-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
