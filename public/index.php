@@ -28,10 +28,12 @@ if ($isProd) {
 use App\Core\Router;
 use App\Core\Request;
 use App\Middleware\AuthMiddleware;
+use App\Middleware\AdminMiddleware;
 use App\Middleware\CorsMiddleware;
 use App\Actions\Test;
 use App\Actions\Auth\RegisterAction;
 use App\Actions\Auth\LoginAction;
+use App\Actions\Auth\MeAction;
 use App\Actions\Content\TrendingShowsAction;
 use App\Actions\Content\ContentDetailsAction;
 use App\Actions\Search\SearchAction;
@@ -40,6 +42,9 @@ use App\Actions\WatchHistory\UnmarkWatchedAction;
 use App\Actions\WatchHistory\WatchStatusAction;
 use App\Actions\WatchHistory\GetWatchedAction;
 use App\Actions\WatchHistory\GetInProgressAction;
+use App\Actions\AdminTasks\ListTasksAction;
+use App\Actions\AdminTasks\CreateTaskAction;
+use App\Actions\AdminTasks\CompleteTaskAction;
 
 $router = new Router();
 
@@ -54,7 +59,11 @@ $router
 ->addRoute( 'POST', '/api/watch-status', WatchStatusAction::class, [CorsMiddleware::class, AuthMiddleware::class])
 ->addRoute( 'GET', '/api/watched-shows', GetWatchedAction::class, [CorsMiddleware::class, AuthMiddleware::class])
 ->addRoute( 'GET', '/api/in-progress-shows', GetInProgressAction::class, [CorsMiddleware::class, AuthMiddleware::class])
-->addRoute( 'GET', '/api/content', Test::class, [ CorsMiddleware::class, AuthMiddleware::class ] );
+->addRoute( 'GET', '/api/content', Test::class, [ CorsMiddleware::class, AuthMiddleware::class ] )
+->addRoute( 'GET', '/api/me', MeAction::class, [CorsMiddleware::class, AuthMiddleware::class])
+->addRoute( 'GET', '/api/admin/tasks', ListTasksAction::class, [CorsMiddleware::class, AuthMiddleware::class, AdminMiddleware::class])
+->addRoute( 'POST', '/api/admin/tasks', CreateTaskAction::class, [CorsMiddleware::class, AuthMiddleware::class, AdminMiddleware::class])
+->addRoute( 'POST', '/api/admin/tasks/complete', CompleteTaskAction::class, [CorsMiddleware::class, AuthMiddleware::class, AdminMiddleware::class]);
 
 $request = new Request();
 $router->resolve( $request );

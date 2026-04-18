@@ -39,3 +39,19 @@ export const getWatchedShows = () => {
 export const getInProgressShows = () => {
   return callAPI('/in-progress-shows', 'GET');
 }
+
+export const getMe = () => {
+  return callAPI('/me', 'GET');
+}
+
+export const getAdminTasks = () => {
+  return callAPI('/admin/tasks', 'GET');
+}
+
+export const createAdminTask = (title: string, description: string | null, type: 'feature' | 'bug' | 'maintenance') => {
+  return callAPI('/admin/tasks', 'POST', { title, description, type });
+}
+
+export const completeAdminTask = (id: number) => {
+  return callAPI('/admin/tasks/complete', 'POST', { id });
+}

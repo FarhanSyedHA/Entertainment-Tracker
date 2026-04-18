@@ -3,6 +3,7 @@ import { Content } from "./Content"
 import Profile from "./Profile"
 import { WatchedPage } from "./WatchedPage"
 import { InProgressPage } from "./InProgressPage"
+import { TasksPage } from "./TasksPage"
 import type { PageTypes } from '../../interface/Types'
 
 interface ViewProps {
@@ -15,6 +16,7 @@ export const View: React.FC<ViewProps> = ({selectedPage}) => {
       {selectedPage === 'profile' && <Profile />}
       {selectedPage === 'watched' && <WatchedPage />}
       {selectedPage === 'inprogress' && <InProgressPage />}
+      {selectedPage === 'tasks' && <TasksPage />}
       {selectedPage === 'home' && <Content/>}
     </div>
   )

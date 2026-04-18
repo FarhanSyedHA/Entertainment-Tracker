@@ -73,6 +73,14 @@ export const Navbar: React.FC<NavbarProps> = ({ selectedPage, onPageChange }) =>
         </nav>
 
         <div className="sidebar-footer">
+          {auth?.me?.is_admin && (
+            <button
+              className={`sidebar-item ${selectedPage === 'tasks' ? 'sidebar-item-active' : ''}`}
+              onClick={() => handleNav('tasks')}
+            >
+              <span className="sidebar-item-label">Tasks</span>
+            </button>
+          )}
           <button className="sidebar-logout" onClick={() => auth?.logout()}>
             <span className="sidebar-item-label">Logout</span>
           </button>
