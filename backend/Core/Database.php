@@ -13,9 +13,16 @@ class Database {
     $dbname = getenv('DB_NAME');
     $dsn = "mysql:host=$host;port=$port;dbname=$dbname";
     $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
+
+    // TiDB Cloud requires TLS. Setting MYSQL_ATTR_SSL_CA to '' used to silently
+    // disable TLS on older mysqlnd builds; on PHP 8.2 with modern drivers it
+    // fails the handshake and the server reports 'Access denied' — not 'SSL
+    // required'. Fix: use the Debian-packaged CA bundle (present in php:8.2-cli)
+    // and disable strict hostname verification (TiDB's cert CN doesn't match
+    // the gateway host exactly).
     if (getenv('APP_ENV') === 'production' || str_contains($host, 'tidbcloud.com')) {
+      $options[\PDO::MYSQL_ATTR_SSL_CA] = '/etc/ssl/certs/ca-certificates.crt';
       $options[\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
-      $options[\PDO::MYSQL_ATTR_SSL_CA] = '';
     }
     $this->pdo = new \PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'), $options);
   }
