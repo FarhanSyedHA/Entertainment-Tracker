@@ -24,14 +24,22 @@ class Router
     $method = $request->getMethod();
     $path = $request->getPath();
 
-    //frontend calls fetch and the browser sees different origin and sends in OPTIONS method which is to retrieve the cors details that says whos allowed and what methods. 
-    if($method === 'OPTIONS') {
-      $origin = getenv('CORS_ORIGIN') ?: '*';
-      header('Access-Control-Allow-Origin: ' . $origin);
-      header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-      header('Access-Control-Allow-Headers: Content-Type, Authorization');
-      header('Access-Control-Allow-Credentials: true');
-      http_response_code(200);
+    // CORS preflight. Browsers send OPTIONS before the real request to learn which
+    // origins/methods/headers the server accepts. We look up the *real* route (by the
+    // requested method from Access-Control-Request-Method) and run its CORS middleware
+    // so the response headers match what the actual request will get. CorsMiddleware
+    // handles the exit for OPTIONS itself.
+    if ($method === 'OPTIONS') {
+      $requestedMethod = $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] ?? 'GET';
+      $route = $this->routes[$requestedMethod][$path] ?? null;
+      $middlewares = $route['middleware'] ?? [\App\Middleware\CorsMiddleware::class];
+      foreach ($middlewares as $middlewareClass) {
+        if ($middlewareClass === \App\Middleware\CorsMiddleware::class) {
+          (new $middlewareClass())->handle($request);
+        }
+      }
+      // If CorsMiddleware wasn't in the list (shouldn't happen), fall through with a 204.
+      http_response_code(204);
       exit;
     }
 
