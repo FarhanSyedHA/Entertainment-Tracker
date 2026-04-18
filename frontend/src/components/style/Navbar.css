@@ -12,7 +12,11 @@
   gap: 8px;
   height: 56px;
   padding: 0 8px;
-  padding-top: env(safe-area-inset-top, 0px);
+  /* Android WebViews without the StatusBar plugin often report
+     env(safe-area-inset-top) = 0 even on notched phones. Fall back to 28px
+     (the Android status-bar height in dp) so the topbar always clears the
+     camera/notch. On iOS / devices that actually report the inset, env() wins. */
+  padding-top: max(28px, env(safe-area-inset-top, 28px));
   padding-left: max(8px, env(safe-area-inset-left, 0px));
   padding-right: max(8px, env(safe-area-inset-right, 0px));
   box-sizing: content-box;
