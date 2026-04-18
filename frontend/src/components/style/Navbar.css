@@ -87,6 +87,12 @@
   min-width: 220px;
   height: 100vh;
   padding: 20px 14px;
+  /* Match the topbar's status-bar fallback so the drawer's logo/close
+     button clear the notch when it slides in on mobile. Also respects
+     the left-side inset for rotated/edge-case devices. */
+  padding-top: max(20px, calc(env(safe-area-inset-top, 28px) + 8px));
+  padding-left: max(14px, env(safe-area-inset-left, 0px));
+  padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
   background: #0f0f14;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   box-sizing: border-box;
