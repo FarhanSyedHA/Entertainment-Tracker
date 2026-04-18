@@ -16,7 +16,7 @@
      env(safe-area-inset-top) = 0 even on notched phones. Fall back to 28px
      (the Android status-bar height in dp) so the topbar always clears the
      camera/notch. On iOS / devices that actually report the inset, env() wins. */
-  padding-top: max(28px, env(safe-area-inset-top, 28px));
+  padding-top: max(40px, env(safe-area-inset-top, 40px));
   padding-left: max(8px, env(safe-area-inset-left, 0px));
   padding-right: max(8px, env(safe-area-inset-right, 0px));
   box-sizing: content-box;
@@ -107,7 +107,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 20px 16px;
-  padding-top: max(20px, calc(env(safe-area-inset-top, 28px) + 20px));
+  /* Android WebViews without the StatusBar plugin return env(safe-area-inset-top)=0.
+     Most punch-hole Android cutouts are 36-44dp; use 56px as a safe fallback so
+     the logo clears the camera on wide devices too. On iOS / phones that report
+     the real inset, env() wins via max(). */
+  padding-top: max(56px, calc(env(safe-area-inset-top, 56px) + 20px));
   padding-left: max(20px, env(safe-area-inset-left, 0px));
   margin-bottom: 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
