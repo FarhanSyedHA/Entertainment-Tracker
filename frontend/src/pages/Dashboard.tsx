@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Navbar } from "../components/DashboardComponents/Navbar";
-import { View } from "../components/DashboardComponents/View";
+import { Navbar } from "../components/layout/Navbar";
+import { View } from "../components/layout/View";
 import type { PageTypes } from "../interface/Types";
 import './style/Dashboard.css'
 

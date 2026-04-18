@@ -1,4 +1,4 @@
-import '../style/ShowsGrid.css'
+import '../style/shows/ShowsGrid.css'
 import type { Show } from '../../interface/Show'
 import { useWatched } from '../../context/WatchedContext'
 

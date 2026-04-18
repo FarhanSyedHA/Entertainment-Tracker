@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import type { Task, TaskList, TaskType } from '../../interface/Task'
-import { getAdminTasks, createAdminTask, completeAdminTask } from '../../api/api'
-import '../style/TasksPage.css'
+import type { Task, TaskList, TaskType } from '../interface/Task'
+import { getAdminTasks, createAdminTask, completeAdminTask } from '../api/api'
+import './style/TasksPage.css'
 
 const TYPE_LABEL: Record<TaskType, string> = {
   feature: 'Feature',

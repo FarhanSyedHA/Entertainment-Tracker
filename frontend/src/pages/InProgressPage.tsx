@@ -1,5 +1,5 @@
-import { ShowListPage } from './ShowListPage'
-import { getInProgressShows } from '../../api/api'
+import { ShowListPage } from '../components/shows/ShowListPage'
+import { getInProgressShows } from '../api/api'
 
 export const InProgressPage: React.FC = () => (
   <ShowListPage

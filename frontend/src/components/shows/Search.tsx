@@ -1,5 +1,5 @@
 import { Filter } from "./Filter"
-import '../style/Search.css'
+import '../style/shows/Search.css'
 import type { FilterTypes } from "../../interface/Types"
 import { useEffect, useRef, useState } from "react";
 import type { Show } from '../../interface/Show'

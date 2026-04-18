@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import '../style/ContentModal.css'
+import '../style/shows/ContentModal.css'
 import type { Show } from '../../interface/Show'
 import type { ShowDetails } from '../../interface/ShowDetails'
 import { getDetails, markAsWatched, unmarkWatched } from '../../api/api'

@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react'
-import '../components/style/Toast.css'
+import '../components/style/common/Toast.css'
 
 type ToastKind = 'success' | 'error' | 'info'
 interface Toast { id: number; message: string; kind: ToastKind }

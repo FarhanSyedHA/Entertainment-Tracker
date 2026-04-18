@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import '../style/Navbar.css'
+import '../style/layout/Navbar.css'
 import type { PageTypes } from '../../interface/Types'
 import { useAuth } from '../../context/AuthContext';
 

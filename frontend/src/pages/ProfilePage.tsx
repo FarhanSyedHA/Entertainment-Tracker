@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
   return (
     <div className="profile-container">
       <h1>Profile</h1>
@@ -9,4 +9,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

@@ -5,7 +5,7 @@ import type { Show } from '../../interface/Show'
 import type { FilterTypes } from '../../interface/Types'
 import { useWatched } from '../../context/WatchedContext'
 import { Filter } from './Filter'
-import '../style/Search.css'
+import '../style/shows/Search.css'
 
 interface Props {
   title: string;

@@ -1,5 +1,5 @@
-import { ShowListPage } from './ShowListPage'
-import { getWatchedShows } from '../../api/api'
+import { ShowListPage } from '../components/shows/ShowListPage'
+import { getWatchedShows } from '../api/api'
 
 export const WatchedPage: React.FC = () => (
   <ShowListPage

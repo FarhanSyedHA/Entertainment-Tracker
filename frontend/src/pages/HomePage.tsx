@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { Search } from "./Search"
-import { ShowsGrid } from "./ShowsGrid"
-import { ContentModal } from "./ContentModal"
-import type { Show } from '../../interface/Show'
-import type { FilterTypes } from "../../interface/Types"
-import { getTrending, search } from "../../api/api"
-import { useWatched } from "../../context/WatchedContext"
+import { Search } from "../components/shows/Search"
+import { ShowsGrid } from "../components/shows/ShowsGrid"
+import { ContentModal } from "../components/shows/ContentModal"
+import type { Show } from '../interface/Show'
+import type { FilterTypes } from "../interface/Types"
+import { getTrending, search } from "../api/api"
+import { useWatched } from "../context/WatchedContext"
+import './style/HomePage.css'
 
 interface ContentFormat {
   movies: Show[];
@@ -13,7 +14,7 @@ interface ContentFormat {
   anime: Show[];
 }
 
-export const Content: React.FC = () => {
+export const HomePage: React.FC = () => {
   const [showMovies, setShowMovies] = useState<Show[]>([]);
   const [showTvshows, setShowTVshows] = useState<Show[]>([]);
   const [showAnimes, setShowAnime] = useState<Show[]>([]);

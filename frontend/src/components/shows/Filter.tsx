@@ -1,5 +1,5 @@
 import type { FilterTypes } from '../../interface/Types'
-import '../style/Filter.css'
+import '../style/shows/Filter.css'
 
 interface FilterProps {
   activeFilter: FilterTypes;
