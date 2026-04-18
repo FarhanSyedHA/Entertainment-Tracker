@@ -1,13 +1,22 @@
-/* ---- Topbar (mobile only) ---- */
+/* ---- Topbar (mobile only) ----
+   On Android the WebView draws edge-to-edge, so `top: 0` sits underneath the
+   status bar (clock/notch). env(safe-area-inset-top) is the iOS/Android-safe
+   way to push the bar down to just below system UI. Height is fixed at 56px
+   (Material Design standard app-bar height) for a consistent native feel. */
 .topbar {
   display: none;
   position: sticky;
   top: 0;
   z-index: 30;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  background: rgba(12, 12, 16, 0.85);
+  gap: 8px;
+  height: 56px;
+  padding: 0 8px;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: max(8px, env(safe-area-inset-left, 0px));
+  padding-right: max(8px, env(safe-area-inset-right, 0px));
+  box-sizing: content-box;
+  background: rgba(12, 12, 16, 0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -17,22 +26,40 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
+  font-size: 17px;
 }
 
+/* Proper touch-target button — 40x40 is the Material minimum. The icon lines
+   are centered inside; the button itself has the tap area and ripple-ish feel. */
 .hamburger {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
+  gap: 4px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   background: transparent;
   border: none;
+  border-radius: 50%;
   cursor: pointer;
+  transition: background-color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hamburger:hover,
+.hamburger:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hamburger:active {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .hamburger span {
   display: block;
+  width: 20px;
   height: 2px;
   background: #fff;
   border-radius: 2px;

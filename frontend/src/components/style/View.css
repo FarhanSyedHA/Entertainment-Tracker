@@ -3,3 +3,10 @@
   overflow-y: auto;
   padding: 16px;
 }
+
+/* On mobile, drop the outer padding so content uses the full width. Child
+   sections (.show-section) already have their own horizontal padding of 16px,
+   which is enough — doubling it up was the source of the "gap on the sides". */
+@media (max-width: 768px) {
+  .view { padding: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
