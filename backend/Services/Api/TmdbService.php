@@ -55,7 +55,7 @@ class TmdbService implements MoviesSourceInterface,TvShowsSourceInterface
   public function searchMovies(string $searchQuery): array
   {
     $searchQuery = urlencode($searchQuery);
-    $raw = HttpClient::get($this->baseTmdbUrl . '/search/movie?query=' . $searchQuery . '&include_adult=false&api_key=' . $this->tmdbApiKey);
+    $raw = HttpClient::get($this->baseTmdbUrl . '/search/movie?query=' . $searchQuery . '&include_adult=true&api_key=' . $this->tmdbApiKey);
     return TmdbAdapter::toShows($raw, 'movie');
   }
 

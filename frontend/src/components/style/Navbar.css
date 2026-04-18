@@ -227,6 +227,44 @@
 
 .sidebar-item-label { line-height: 1; }
 
+/* Admin-only entry: outlined red, slightly smaller than nav items to read as
+   a distinct privileged action rather than a regular page. Sits in the nav
+   list above the footer divider. */
+.sidebar-admin {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 40px;
+  margin-top: auto;
+  margin-bottom: 8px;
+  padding: 0 14px;
+  background: transparent;
+  border: 1px solid rgba(229, 9, 20, 0.55);
+  border-radius: 10px;
+  color: #ff6b6b;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sidebar-admin:hover,
+.sidebar-admin:active {
+  background: rgba(229, 9, 20, 0.1);
+  border-color: rgba(229, 9, 20, 0.85);
+  color: #ff8585;
+}
+
+.sidebar-admin-active,
+.sidebar-admin-active:hover {
+  background: rgba(229, 9, 20, 0.14);
+  border-color: #E50914;
+  color: #ff8585;
+}
+
 /* Footer stays pinned at the bottom with its own padding + safe-area inset
    so Logout always clears the Android gesture pill. */
 .sidebar-footer {

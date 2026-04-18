@@ -138,9 +138,9 @@
   border-radius: 999px;
   font-weight: 600;
 }
-.task-type-feature { background: #1a2e4a; color: #7fb0ff; }
+.task-type-feature { background: #14331d; color: #7fd69a; }
 .task-type-bug { background: #3a1414; color: #ff9090; }
-.task-type-maintenance { background: #2e2a14; color: #e8c470; }
+.task-type-maintenance { background: #1a2e4a; color: #7fb0ff; }
 
 .task-desc {
   margin: 6px 0 0;
