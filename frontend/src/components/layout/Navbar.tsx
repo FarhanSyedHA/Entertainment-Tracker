@@ -46,15 +46,15 @@ export const Navbar: React.FC<NavbarProps> = ({ selectedPage, onPageChange }) =>
         >
           <span /><span /><span />
         </button>
-        <div className="topbar-logo" onClick={() => new Audio('./faaa.mp3').play()}>F Tracker</div>
+        <div className="topbar-logo" onClick={() => {}}>FH Tracker</div>
       </header>
 
       {open && <div className="nav-scrim" onClick={() => setOpen(false)} />}
 
       <aside className={`sidebar ${open ? 'sidebar-open' : ''}`} aria-label="Main navigation">
         <div className="sidebar-header">
-          <div className="sidebar-logo" onClick={() => new Audio('./faaa.mp3').play()}>
-            <span className="sidebar-logo-mark">F</span>
+          <div className="sidebar-logo" onClick={() => {}}>
+            <span className="sidebar-logo-mark">FH</span>
             <span className="sidebar-logo-text">Tracker</span>
           </div>
           <button className="sidebar-close" aria-label="Close navigation" onClick={() => setOpen(false)}>✕</button>
