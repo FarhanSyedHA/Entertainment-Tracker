@@ -3,3 +3,8 @@ vendor/
 .idea/
 .vscode/
 node_modules/
+.env
+.env.*
+!.env.example
+.claude/
+CLAUDE_v1_reference.md
